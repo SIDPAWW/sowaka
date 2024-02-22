@@ -411,10 +411,7 @@ def chat_msg():
                 response.append("1. Check Disease")   
                 response.append('<a href="/diseases" target="_blank">Symptoms List</a>')   
                 userSession[sessionId] = userSession.get(sessionId) +1
-
-
         if currentState==8:    
-
             if '1' in user_message or 'disease' in user_message:
                 disease,type = predict_disease_from_symptom(all_result['symptoms'])  
                 response.append("The following disease may be causing your discomfort")
@@ -428,37 +425,21 @@ def chat_msg():
                 response.append("1. Check Disease")   
                 response.append('<a href="/diseases" target="_blank">Symptoms List</a>')   
                 userSession[sessionId] = userSession.get(sessionId) +1
-
         if currentState==10:
             response.append('<a href="/user" target="_blank">Predict Again</a>')   
-
-        
         if currentState==20:
-
             result,data = get_symtoms(user_message)
             if result:
                 response.append(f"The symptoms of {user_message} are")
                 for sym in data:
                     response.append(sym.capitalize())
-
             else:response.append(data)
-
             userSession[sessionId] = 2
             response.append("")
             response.append("Choose Option ?")            
             response.append("1. Predict Disease")
             response.append("2. Check Disease Symtoms")
-
-
-
-
-                
-
         return jsonify({'status': 'OK', 'answer': response})
-
-
-
-
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
